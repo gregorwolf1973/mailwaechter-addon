@@ -77,3 +77,43 @@ test("SPF aus dem Netz: Attrappe-Resolver sagt fail → rot, wenn die Domain pas
   assert.equal(e.stufe, "rot", titel(e));
   assert.ok(e.gruende.some((g) => /SPF/.test(g.titel)), titel(e));
 });
+
+import { berichtKompakt, BERICHT_MAX_BYTES } from "../mailwaechter/app/pruefen.js";
+
+test("berichtKompakt: enthält auch grüne Befunde, Geprüft-Liste und Einzelheiten", async () => {
+  const e = await pruefeMail(eml("harmlos"), { optionen, bekannte });
+  const b = berichtKompakt(e);
+  assert.equal(b.stufe, "gruen");
+  assert.ok(b.befunde.some((x) => x.stufe === "gruen"), "grüne Befunde fehlen");
+  assert.ok(b.befunde.every((x) => x.gruppe && x.stufe && x.titel));
+  assert.ok(b.geprueft.some((t) => /Google-Prüfung: SPF pass/.test(t)));
+  assert.ok(b.geprueft.some((t) => /DNS nicht erreichbar/.test(t)));
+  assert.ok(b.einzelheiten.absender && b.einzelheiten.rechner?.ip && b.einzelheiten.google.dmarc === "pass");
+  assert.ok(Buffer.byteLength(JSON.stringify(b)) < BERICHT_MAX_BYTES);
+});
+
+test("berichtKompakt: Links mit Anzeige/Ziel/Gründen, Anhänge mit Gründen", async () => {
+  const p = berichtKompakt(await pruefeMail(eml("paypal-phishing"), { optionen, bekannte }));
+  assert.equal(p.links.length, 1);
+  assert.equal(p.links[0].stufe, "rot");
+  assert.match(p.links[0].ziel, /paypa1-login/);
+  assert.ok(p.links[0].gruende.some((g) => /Link zeigt etwas anderes/.test(g)));
+  const z = berichtKompakt(await pruefeMail(eml("zip-exe"), { optionen, bekannte }));
+  assert.equal(z.anhaenge[0].name, "Rechnung.zip");
+  assert.equal(z.anhaenge[0].stufe, "rot");
+  assert.ok(z.anhaenge[0].gruende.length >= 1);
+});
+
+test("berichtKompakt: harte Größenbegrenzung kürzt Links; kein Mailtext", async () => {
+  const e = await pruefeMail(eml("paypal-phishing"), { optionen, bekannte });
+  const l = e.bericht.links[0];
+  e.bericht.links = Array.from({ length: 80 }, (_, i) => ({ ...l, text: "A".repeat(400), ziel: "https://x.example/" + "p".repeat(900) + i }));
+  const b = berichtKompakt(e);
+  assert.ok(b.links.length <= 50);
+  assert.ok(Buffer.byteLength(JSON.stringify(b)) <= BERICHT_MAX_BYTES, "zu groß: " + Buffer.byteLength(JSON.stringify(b)));
+  assert.equal(b.gekuerzt, true);
+  /* Mailtext darf nicht drinstehen */
+  e.bericht.lesetext = "GEHEIMER-MAILTEXT-12345";
+  assert.ok(!JSON.stringify(berichtKompakt(e)).includes("GEHEIMER-MAILTEXT"));
+  assert.ok(!("lesetext" in b));
+});

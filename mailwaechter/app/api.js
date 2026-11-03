@@ -21,7 +21,7 @@ async function koerper(req) {
   try { return JSON.parse(Buffer.concat(teile).toString("utf8") || "{}"); } catch { return {}; }
 }
 
-export function handlerBauen({ optionen, waechter, protokoll, bekannte, version = "0.1.0" }) {
+export function handlerBauen({ optionen, waechter, protokoll, bekannte, version = "0.2.0" }) {
   const test = { laeuft: false, ergebnis: null, fehler: "" };
   return async function handler(req, res) {
     try {
@@ -46,7 +46,14 @@ export function handlerBauen({ optionen, waechter, protokoll, bekannte, version 
       }
       if (req.method === "GET" && pfad === "/api/eintraege") {
         const filter = url.searchParams.get("filter") || "alle";
-        return json(res, 200, { eintraege: protokoll.liste(filter) });
+        return json(res, 200, { eintraege: protokoll.liste(filter).map(({ bericht, ...rest }) => ({ ...rest, hatBericht: !!bericht })) });
+      }
+      if (req.method === "GET" && pfad === "/api/eintrag") {
+        const id = url.searchParams.get("id") || "";
+        if (!/^[0-9a-f-]{36}$/i.test(id)) return json(res, 400, { fehler: "ungültige id" });
+        const e = protokoll.finden(id);
+        if (!e) return json(res, 404, { fehler: "Eintrag nicht gefunden" });
+        return json(res, 200, { eintrag: e });
       }
       if (req.method === "POST" && pfad === "/api/zurueckholen") {
         const { id } = await koerper(req);

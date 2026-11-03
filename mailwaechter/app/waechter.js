@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, existsSync, renameSync } from "node:fs";
 import { join } from "node:path";
 import { ImapFlow } from "imapflow";
-import { pruefeMail, wichtigsterGrund } from "./pruefen.js";
+import { pruefeMail, wichtigsterGrund, berichtKompakt } from "./pruefen.js";
 import { melden } from "./benachrichtigung.js";
 import { log } from "./log.js";
 
@@ -107,7 +107,7 @@ export class Waechter {
     }
     if (ergebnis.stufe === "fehler") {
       log.warning(`Prüfung gescheitert (UID ${uid}): ${ergebnis.fehler}`);
-      return this.protokoll.hinzufuegen({ von, betreff, stufe: "fehler", gruende: [{ stufe: "info", titel: ergebnis.fehler, text: "" }], aktion: "Fehler", gmailId, test });
+      return this.protokoll.hinzufuegen({ von, betreff, stufe: "fehler", gruende: [{ stufe: "info", titel: ergebnis.fehler, text: "" }], bericht: { fehler: ergebnis.fehler }, aktion: "Fehler", gmailId, test });
     }
     let aktion = test ? (["rot", "gelb"].includes(ergebnis.stufe) ? "nur gemeldet (Test)" : "keine") : aktionFuer(ergebnis.stufe, this.optionen.nurMelden);
     let ort = "";
@@ -129,7 +129,7 @@ export class Waechter {
     }
     const grund = wichtigsterGrund(ergebnis.gruende, ergebnis.stufe);
     log.info(`${ergebnis.stufe.toUpperCase()} – ${von} – ${betreff} – ${aktion}${grund ? ` – ${grund}` : ""}`);
-    const eintrag = this.protokoll.hinzufuegen({ von, betreff, stufe: ergebnis.stufe, gruende: ergebnis.gruende.map(({ stufe, titel, text }) => ({ stufe, titel, text })), aktion, ort, gmailId, test });
+    const eintrag = this.protokoll.hinzufuegen({ von, betreff, stufe: ergebnis.stufe, gruende: ergebnis.gruende.map(({ stufe, titel, text }) => ({ stufe, titel, text })), bericht: berichtKompakt(ergebnis), aktion, ort, gmailId, test });
     this.status.geprueft++;
     this.status.letztePruefung = eintrag.zeit;
     if (!test) await melden(this.optionen, { von, betreff, stufe: ergebnis.stufe, grund, aktion }, { holen: this.holen });

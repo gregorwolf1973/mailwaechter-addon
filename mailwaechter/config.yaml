@@ -1,5 +1,5 @@
 name: Mailwächter
-version: "0.1.0"
+version: "0.2.0"
 slug: mailwaechter
 # Fertige Abbilder aus der GitHub-Registrierung (sonst baut jedes Geraet selbst)
 image: ghcr.io/gregorwolf1973/{arch}-addon-mailwaechter

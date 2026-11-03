@@ -7,12 +7,12 @@ import { randomUUID } from "node:crypto";
    Klein gehalten – älter als 90 Tage wird gelöscht (beim Start und
    täglich), höchstens 5000 Einträge. Je Zeile:
 
-     { id, zeit, von, betreff, stufe, gruende:[{stufe,titel,text}],
+     { id, zeit, von, betreff, stufe, gruende:[{stufe,titel,text}], bericht (ab 0.2.0, siehe berichtKompakt),
        aktion, ort, gmailId, test, zurueckgeholt }
 
    `aktion`: "verschoben", "beschriftet", "nur gemeldet", "keine", "Fehler".
    `ort`: "gefahr" | "pruefen" | "" – wo die Mail jetzt liegt (für Zurückholen).
-   Nur Absender, Betreff und Befundtexte – kein Mailtext.
+   Nur Absender, Betreff, Befundtexte und Link-/Anhangnamen – kein Mailtext.
    ============================================================ */
 
 const TAGE = 90;
@@ -63,6 +63,10 @@ export class Protokoll {
   /* Wurde diese Gmail-Nachricht schon geprüft (nicht im Test)? */
   gesehen(gmailId) {
     return !!gmailId && this.eintraege.some((e) => e.gmailId === gmailId && !e.test);
+  }
+
+  finden(id) {
+    return this.eintraege.find((e) => e.id === id) || null;
   }
 
   liste(filter = "alle", grenze = 500) {

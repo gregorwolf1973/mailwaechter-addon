@@ -72,6 +72,12 @@ Ein grünes Urteil ist keine Garantie.
 Liste der geprüften Mails mit Ampel und Gründen, Filter Rot/Gelb/Alle,
 Verbindungsstatus. **Zurückholen** legt die Mail zurück in den Posteingang,
 nimmt die Labels weg und merkt die Absenderdomain künftig als bekannt.
+**Bericht** an jedem Eintrag öffnet den ausführlichen Prüfbericht wie im
+Mailprüfungs-Tool: Urteil, was geprüft wurde, alle Befunde nach Gruppen
+(Auffälliges aufgeklappt), Links, Anhänge und Einzelheiten zur Herkunft.
+Gespeichert werden nur Prüfergebnisse, Link-Ziele und -Anzeigen,
+Anhangnamen und Kopfdaten – **kein Mailtext**. Einträge von vor Version
+0.2.0 haben keinen Bericht, nur die Gründe.
 Das Protokoll liegt in `/data` und wird nach 90 Tagen gelöscht.
 
 ## Regeln abgleichen

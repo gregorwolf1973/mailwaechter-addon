@@ -181,3 +181,46 @@ test("Optionen: Leerzeichen im App-Passwort fallen weg, Standardwerte", () => {
   assert.equal(o.nurMelden, false);
   assert.equal(o.meldenBei, "rot");
 });
+
+import { createServer } from "node:http";
+import { handlerBauen } from "../mailwaechter/app/api.js";
+
+test("Protokoll speichert den Bericht (auch im Testlauf), Fehler mit Fehlertext", async () => {
+  const { w } = aufbau({}, [mailEintrag(1, "dmarc-fail"), mailEintrag(2, "harmlos")], 3);
+  await w.testlauf(50);
+  for (const e of w.protokoll.eintraege) {
+    assert.ok(e.bericht?.befunde?.length, "Bericht fehlt");
+    assert.ok(e.gruende.every((g) => g.stufe !== "gruen"), "gruende ohne grün bleibt");
+    assert.ok(!("lesetext" in e.bericht));
+  }
+  assert.ok(w.protokoll.eintraege[1].bericht.befunde.some((b) => b.stufe === "gruen"));
+  const { w: w2 } = aufbau({}, [mailEintrag(1, "dmarc-fail")], 2);
+  w2.client.ordner.INBOX[0].source = Buffer.alloc(0);
+  w2.client.offen = "INBOX";
+  const f = await w2.mailVerarbeiten(w2.client, 1, { test: true }).catch((e) => e);
+  assert.equal(f.stufe, "fehler");
+  assert.match(f.bericht.fehler, /nicht lesbar/);
+});
+
+test("/api/eintraege ohne Bericht, /api/eintrag liefert ihn (200/400/404)", async () => {
+  const { w } = aufbau({}, [mailEintrag(1, "dmarc-fail")], 2);
+  await w.testlauf(50);
+  const server = createServer(handlerBauen({ optionen: w.optionen, waechter: null, protokoll: w.protokoll, bekannte: { domains: {}, stand: null } }));
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const basis = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const liste = await (await fetch(basis + "/api/eintraege")).json();
+    assert.equal(liste.eintraege.length, 1);
+    assert.ok(!("bericht" in liste.eintraege[0]));
+    assert.equal(liste.eintraege[0].hatBericht, true);
+    const id = liste.eintraege[0].id;
+    const r = await fetch(basis + "/api/eintrag?id=" + id);
+    assert.equal(r.status, 200);
+    const j = await r.json();
+    assert.equal(j.eintrag.id, id);
+    assert.equal(j.eintrag.bericht.stufe, "rot");
+    assert.equal((await fetch(basis + "/api/eintrag?id=00000000-0000-0000-0000-000000000000")).status, 404);
+    assert.equal((await fetch(basis + "/api/eintrag?id=../x")).status, 400);
+    assert.equal((await fetch(basis + "/api/eintrag")).status, 400);
+  } finally { server.close(); }
+});

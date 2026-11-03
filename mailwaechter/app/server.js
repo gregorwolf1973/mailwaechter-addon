@@ -10,7 +10,7 @@ import { handlerBauen } from "./api.js";
 
 /* Mailwächter – Einstieg. Optionen aus /data/options.json, Daten in /data
    (lokal: DATA_DIR und OPTIONS_FILE setzen). */
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 const dataDir = process.env.DATA_DIR || "/data";
 const port = Number(process.env.PORT || 8099);
 

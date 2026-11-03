@@ -39,3 +39,33 @@ ul.gruende li.rot { color: var(--rot); } ul.gruende li.gelb { color: var(--gelb)
 ul.gruende li span { color: var(--text); }
 .aktionen { margin-top: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .leer { color: var(--leise); }
+
+/* Detailansicht (Prüfbericht) */
+#detail { max-width: 860px; }
+.d-oben { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
+.d-kopf { margin-bottom: 10px; }
+.d-betreff { font-weight: 700; font-size: 1.05rem; overflow-wrap: anywhere; margin-bottom: 4px; }
+.d-zeile { color: var(--leise); font-size: .88rem; overflow-wrap: anywhere; }
+.d-zeile b { display: inline-block; min-width: 56px; font-weight: 600; color: var(--text); }
+.urteil { margin: 10px 0; padding: 10px 12px; border-radius: 6px; border: 1px solid var(--rand); background: var(--karte); }
+.urteil h2 { margin: 0 0 4px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+.urteil p { margin: 0; }
+.urteil .geprueft { margin-top: 6px; font-size: .84rem; color: var(--leise); }
+.urteil.rot { border-color: var(--rot); } .urteil.rot h2 { color: var(--rot); }
+.urteil.gelb { border-color: var(--gelb); } .urteil.gelb h2 { color: var(--gelb); }
+.urteil.gruen { border-color: var(--gruen); } .urteil.gruen h2 { color: var(--gruen); }
+.urteil .punkt { width: 16px; height: 16px; }
+.punkt { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--info); }
+.punkt.rot { background: var(--rot); } .punkt.gelb { background: var(--gelb); } .punkt.gruen { background: var(--gruen); }
+details.abschnitt { background: var(--karte); border: 1px solid var(--rand); border-radius: 6px; margin: 8px 0; padding: 0 12px; }
+details.abschnitt > summary { cursor: pointer; padding: 8px 0; font-weight: 600; }
+.gruppe { margin: 8px 0; }
+.befund { display: flex; gap: 9px; padding: 6px 0; border-top: 1px solid var(--rand); overflow-wrap: anywhere; }
+.befund .punkt { margin-top: 6px; align-self: flex-start; }
+.tab { width: 100%; border-collapse: collapse; font-size: .88rem; margin-bottom: 8px; }
+.tab td { padding: 4px 8px; border-top: 1px solid var(--rand); vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }
+.tab tr:first-child td { border-top: 0; }
+.tab td:first-child { width: 1%; white-space: nowrap; color: var(--leise); }
+.tab .ziel { font-family: Consolas, monospace; font-size: .8rem; color: var(--leise); }
+.meta.rot { color: var(--rot); } .meta.gelb { color: var(--gelb); }
+@media (max-width: 520px) { .tab td:first-child { white-space: normal; } }
