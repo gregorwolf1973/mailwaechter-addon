@@ -155,7 +155,11 @@ export class Waechter {
         const gefunden = (await client.search({ uid: `${this.zustand.lastUid + 1}:*` }, { uid: true })) || [];
         const neu = gefunden.filter((u) => u > this.zustand.lastUid).sort((a, b) => a - b);
         for (const uid of neu) {
-          try { await this.mailVerarbeiten(client, uid); } catch (e) { log.error(`UID ${uid}:`, e); }
+          try { await this.mailVerarbeiten(client, uid); } catch (e) {
+            log.error(`UID ${uid}:`, e);
+            /* Verbindung weg: UID nicht weiterzählen, sonst bliebe die Mail für immer ungeprüft */
+            if (!client.usable) break;
+          }
           this.zustand.lastUid = uid;
           this.zustand.freigegeben = this.zustand.freigegeben.slice(-500);
           this.zustandSpeichern();

@@ -103,7 +103,7 @@ document.querySelectorAll(".filter button").forEach((b) => {
   };
 });
 $("test").onclick = async () => {
-  try { await api("api/testlauf", { method: "POST" }); testLief = true; meldung("Testlauf läuft …"); $("test").disabled = true; }
+  try { await api("api/testlauf", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" }); testLief = true; meldung("Testlauf läuft …"); $("test").disabled = true; }
   catch (e) { meldung("Testlauf nicht gestartet: " + e.message); }
 };
 

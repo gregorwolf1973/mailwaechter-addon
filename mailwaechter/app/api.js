@@ -27,6 +27,10 @@ export function handlerBauen({ optionen, waechter, protokoll, bekannte, version 
     try {
       const url = new URL(req.url, "http://x");
       const pfad = url.pathname.replace(/\/{2,}/g, "/");
+      /* Schreibendes nur als JSON – ein untergeschobenes Formular fremder Seiten kann das nicht */
+      if (req.method === "POST" && !String(req.headers["content-type"] || "").startsWith("application/json")) {
+        return json(res, 415, { fehler: "nur JSON" });
+      }
       if (req.method === "GET" && pfad === "/api/status") {
         const s = waechter?.status || {};
         return json(res, 200, {
