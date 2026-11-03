@@ -78,15 +78,19 @@ function eintragZeichnen(e) {
 }
 
 function zurueckholKnopf(e, danach) {
-  const knopf = el("button", "", "Zurückholen");
-  knopf.title = "Mail zurück in den Posteingang, Labels entfernen, Absenderdomain künftig als bekannt merken";
+  /* Nicht verschoben (Testlauf, nur_melden): dann bleibt nur das Merken als harmlos */
+  const verschoben = !!e.ort;
+  const knopf = el("button", "", verschoben ? "Zurückholen" : "Als harmlos merken");
+  knopf.title = verschoben
+    ? "Mail zurück in den Posteingang, Labels entfernen, Absenderdomain künftig als bekannt merken"
+    : "Die Mail wurde nicht verschoben – Absenderdomain künftig als bekannt merken";
   knopf.onclick = async () => {
     knopf.disabled = true;
     try {
       const r = await api("api/zurueckholen", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: e.id }) });
-      meldung("Zurückgeholt." + (r.domainGemerkt ? ` ${r.domainGemerkt} gilt künftig als bekannt.` : ""));
+      meldung((verschoben ? "Zurückgeholt." : "Gemerkt.") + (r.domainGemerkt ? ` ${r.domainGemerkt} gilt künftig als bekannt.` : ""));
       danach();
-    } catch (err) { meldung("Zurückholen gescheitert: " + err.message); knopf.disabled = false; }
+    } catch (err) { meldung((verschoben ? "Zurückholen" : "Merken") + " gescheitert: " + err.message); knopf.disabled = false; }
   };
   return knopf;
 }
