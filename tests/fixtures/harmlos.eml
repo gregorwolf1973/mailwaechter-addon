@@ -1,0 +1,24 @@
+Delivered-To: gregor@gmail.example
+Received: by 2002:a05:6a00:1234:b0:1ab:cd12:34ef with SMTP id abc123;
+        Mon, 2 Nov 2026 08:00:01 -0800 (PST)
+ARC-Authentication-Results: i=1; mx.google.com; dkim=pass header.i=@beispiel-firma.example header.s=sel1 header.b=abcd; spf=pass (google.com: domain of max.muster@beispiel-firma.example designates 203.0.113.10 as permitted sender) smtp.mailfrom=max.muster@beispiel-firma.example; dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=beispiel-firma.example
+Return-Path: <max.muster@beispiel-firma.example>
+Received: from mail.beispiel-firma.example (mail.beispiel-firma.example. [203.0.113.10])
+        by mx.google.com with ESMTPS id x1si123456qkb.1.2026.11.02.08.00.00
+        for <gregor@gmail.example>; Mon, 02 Nov 2026 08:00:00 -0800 (PST)
+Authentication-Results: mx.google.com; dkim=pass header.i=@beispiel-firma.example header.s=sel1 header.b=abcd; spf=pass (google.com: domain of max.muster@beispiel-firma.example designates 203.0.113.10 as permitted sender) smtp.mailfrom=max.muster@beispiel-firma.example; dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=beispiel-firma.example
+From: Max Muster <max.muster@beispiel-firma.example>
+To: gregor@gmail.example
+Subject: Termin am Donnerstag
+Date: Mon, 2 Nov 2026 17:00:00 +0100
+Message-ID: <318xa9945dt@mail.beispiel-firma.example>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hallo Gregor,
+
+passt es dir am Donnerstag um 10 Uhr? Dann besprechen wir die Lieferung.
+
+Gruß Max
+

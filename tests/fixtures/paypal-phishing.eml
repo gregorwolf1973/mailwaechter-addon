@@ -1,0 +1,20 @@
+Delivered-To: gregor@gmail.example
+Received: by 2002:a05:6a00:1234:b0:1ab:cd12:34ef with SMTP id abc123;
+        Mon, 2 Nov 2026 08:00:01 -0800 (PST)
+ARC-Authentication-Results: i=1; mx.google.com; dkim=none; spf=pass (google.com: domain of service@paypa1-support.example designates 198.51.100.77 as permitted sender) smtp.mailfrom=service@paypa1-support.example; dmarc=pass (p=NONE) header.from=paypa1-support.example
+Return-Path: <service@paypa1-support.example>
+Received: from mailer.paypa1-support.example (mailer.paypa1-support.example. [198.51.100.77])
+        by mx.google.com with ESMTPS id x1si123456qkb.1.2026.11.02.08.00.00
+        for <gregor@gmail.example>; Mon, 02 Nov 2026 08:00:00 -0800 (PST)
+Authentication-Results: mx.google.com; dkim=none; spf=pass (google.com: domain of service@paypa1-support.example designates 198.51.100.77 as permitted sender) smtp.mailfrom=service@paypa1-support.example; dmarc=pass (p=NONE) header.from=paypa1-support.example
+From: PayPal Service <service@paypa1-support.example>
+To: gregor@gmail.example
+Subject: Ihr PayPal-Konto wurde eingeschränkt
+Date: Mon, 2 Nov 2026 17:00:00 +0100
+Message-ID: <ak2tf5gvugq@mailer.paypa1-support.example>
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><body><p>Sehr geehrter Kunde,</p><p>Ihr Konto wurde eingeschränkt. Bitte bestätigen Sie Ihr Passwort sofort:</p><p><a href="https://paypa1-login.example/verify?id=1">https://www.paypal.com/de/login</a></p></body></html>
+

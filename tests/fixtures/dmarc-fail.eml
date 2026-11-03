@@ -1,0 +1,23 @@
+Delivered-To: gregor@gmail.example
+Received: by 2002:a05:6a00:1234:b0:1ab:cd12:34ef with SMTP id abc123;
+        Mon, 2 Nov 2026 08:00:01 -0800 (PST)
+ARC-Authentication-Results: i=1; mx.google.com; dkim=none; spf=softfail (google.com: domain of transitioning info@sparkasse-beispiel.example does not designate 198.51.100.200 as permitted sender) smtp.mailfrom=info@sparkasse-beispiel.example; dmarc=fail (p=REJECT sp=REJECT dis=NONE) header.from=sparkasse-beispiel.example
+Return-Path: <info@sparkasse-beispiel.example>
+Received: from vps123.hoster-beispiel.example (vps123.hoster-beispiel.example. [198.51.100.200])
+        by mx.google.com with ESMTPS id x1si123456qkb.1.2026.11.02.08.00.00
+        for <gregor@gmail.example>; Mon, 02 Nov 2026 08:00:00 -0800 (PST)
+Authentication-Results: mx.google.com; dkim=none; spf=softfail (google.com: domain of transitioning info@sparkasse-beispiel.example does not designate 198.51.100.200 as permitted sender) smtp.mailfrom=info@sparkasse-beispiel.example; dmarc=fail (p=REJECT sp=REJECT dis=NONE) header.from=sparkasse-beispiel.example
+From: Sparkasse Beispielstadt <info@sparkasse-beispiel.example>
+To: gregor@gmail.example
+Subject: Wichtige Mitteilung zu Ihrem Konto
+Date: Mon, 2 Nov 2026 17:00:00 +0100
+Message-ID: <it10nrpxcvg@vps123.hoster-beispiel.example>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Guten Tag,
+
+bitte lesen Sie die angehängte Mitteilung.
+
+

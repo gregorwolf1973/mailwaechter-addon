@@ -1,0 +1,41 @@
+:root {
+  --hg: #f6f7f9; --karte: #fff; --text: #1d2330; --leise: #667085; --rand: #d9dde5;
+  --rot: #c62828; --gelb: #b26a00; --gruen: #2e7d32; --info: #546e7a; --akzent: #1f5fbf;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hg: #12151b; --karte: #1b2029; --text: #e6e9ef; --leise: #98a1b3; --rand: #2c3340;
+    --rot: #ff6b6b; --gelb: #ffb74d; --gruen: #81c784; --info: #90a4ae; --akzent: #7aa7ff;
+  }
+}
+:root[data-theme="dark"] {
+  --hg: #12151b; --karte: #1b2029; --text: #e6e9ef; --leise: #98a1b3; --rand: #2c3340;
+  --rot: #ff6b6b; --gelb: #ffb74d; --gruen: #81c784; --info: #90a4ae; --akzent: #7aa7ff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0 16px 32px; background: var(--hg); color: var(--text); font: 15px/1.45 system-ui, sans-serif; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; padding: 16px 0 8px; }
+h1 { margin: 0; font-size: 1.3rem; }
+.status { color: var(--leise); }
+.status b.ok { color: var(--gruen); } .status b.nein { color: var(--rot); }
+.leiste { display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; margin: 8px 0 12px; }
+button { font: inherit; padding: 6px 12px; border: 1px solid var(--rand); border-radius: 6px; background: var(--karte); color: var(--text); cursor: pointer; }
+button:hover { border-color: var(--akzent); }
+button:disabled { opacity: .5; cursor: default; }
+.filter button { border-radius: 0; margin-left: -1px; }
+.filter button:first-child { border-radius: 6px 0 0 6px; margin: 0; } .filter button:last-child { border-radius: 0 6px 6px 0; }
+.filter button.aktiv { background: var(--akzent); color: #fff; border-color: var(--akzent); }
+.meldung { padding: 8px 12px; border-left: 4px solid var(--akzent); background: var(--karte); margin: 0 0 12px; }
+.eintrag { background: var(--karte); border: 1px solid var(--rand); border-left: 5px solid var(--info); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+.eintrag.rot { border-left-color: var(--rot); } .eintrag.gelb { border-left-color: var(--gelb); } .eintrag.gruen { border-left-color: var(--gruen); }
+.kopf { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.ampel { font-weight: 700; text-transform: uppercase; font-size: .8rem; }
+.rot .ampel { color: var(--rot); } .gelb .ampel { color: var(--gelb); } .gruen .ampel { color: var(--gruen); }
+.betreff { font-weight: 600; overflow-wrap: anywhere; }
+.von, .meta { color: var(--leise); font-size: .88rem; overflow-wrap: anywhere; }
+ul.gruende { margin: 6px 0 0; padding-left: 18px; }
+ul.gruende li { margin: 2px 0; }
+ul.gruende li.rot { color: var(--rot); } ul.gruende li.gelb { color: var(--gelb); }
+ul.gruende li span { color: var(--text); }
+.aktionen { margin-top: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.leer { color: var(--leise); }

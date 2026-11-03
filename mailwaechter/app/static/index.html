@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mailwächter</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Mailwächter</h1>
+  <div id="status" class="status" role="status">Lade …</div>
+</header>
+<section class="leiste">
+  <div class="filter" role="group" aria-label="Filter">
+    <button data-filter="alle" class="aktiv">Alle</button>
+    <button data-filter="rot">Rot</button>
+    <button data-filter="gelb">Gelb</button>
+  </div>
+  <button id="test" title="Prüft die letzten 50 Mails im Posteingang, verschiebt aber nichts">Letzte 50 Mails jetzt prüfen (nur melden)</button>
+</section>
+<p id="meldung" class="meldung" hidden></p>
+<main id="liste"><p class="leer">Lade …</p></main>
+<script src="app.js"></script>
+</body>
+</html>

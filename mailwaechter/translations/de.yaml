@@ -1,0 +1,43 @@
+configuration:
+  gmail_adresse:
+    name: Gmail-Adresse
+    description: Das Postfach, das überwacht wird (IMAP muss in Gmail eingeschaltet sein).
+  app_passwort:
+    name: App-Passwort
+    description: >-
+      16-stelliges App-Passwort aus dem Google-Konto (Sicherheit → Bestätigung in
+      zwei Schritten → App-Passwörter). Nicht das normale Kennwort.
+  benachrichtigung:
+    name: Benachrichtigung
+    description: >-
+      HA-Dienst für die Push-Nachricht, z. B. notify.mobile_app_pixel_8. Leer =
+      keine Nachricht.
+  melden_bei:
+    name: Melden ab
+    description: rot = nur gefährliche Mails melden, gelb = auch verdächtige.
+  nur_melden:
+    name: Nur melden
+    description: An = nichts verschieben oder beschriften, nur protokollieren.
+  eigene_domains:
+    name: Eigene Domains
+    description: >-
+      Domains, die dir gehören. Kommt eine Mail mit so einem Absender von außen
+      (nicht über deinen eigenen Versand), wird sie als Fälschung gewertet.
+  geschuetzte_namen:
+    name: Gern gefälschte Namen
+    description: >-
+      Namen (z. B. „Gregor Wolf“, Chef, Familie), die in fremden Adressen als
+      Anzeigename oder vor dem @ stehen und dann als Täuschung gelten.
+  bekannte_domains:
+    name: Bekannte Domains
+    description: >-
+      Domains, die immer als bekannter Absender gelten (zusätzlich zu allen, an
+      die du in den letzten 2 Jahren geschrieben hast).
+  rdap:
+    name: Alter der Domain prüfen
+    description: Fragt die Registrierungsstelle (RDAP), nur mit dem Domainnamen.
+  sperrlisten:
+    name: Sperrlisten prüfen
+    description: Spamhaus DROP und Feodo Tracker, nur mit der Adresse des sendenden Rechners.
+  log_level:
+    name: Protokollstufe

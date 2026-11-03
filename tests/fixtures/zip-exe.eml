@@ -1,0 +1,32 @@
+Delivered-To: gregor@gmail.example
+Received: by 2002:a05:6a00:1234:b0:1ab:cd12:34ef with SMTP id abc123;
+        Mon, 2 Nov 2026 08:00:01 -0800 (PST)
+ARC-Authentication-Results: i=1; mx.google.com; dkim=pass header.i=@lieferant-beispiel.example; spf=pass smtp.mailfrom=rechnung@lieferant-beispiel.example; dmarc=pass header.from=lieferant-beispiel.example
+Return-Path: <rechnung@lieferant-beispiel.example>
+Received: from mail.lieferant-beispiel.example (mail.lieferant-beispiel.example. [203.0.113.55])
+        by mx.google.com with ESMTPS id x1si123456qkb.1.2026.11.02.08.00.00
+        for <gregor@gmail.example>; Mon, 02 Nov 2026 08:00:00 -0800 (PST)
+Authentication-Results: mx.google.com; dkim=pass header.i=@lieferant-beispiel.example; spf=pass smtp.mailfrom=rechnung@lieferant-beispiel.example; dmarc=pass header.from=lieferant-beispiel.example
+From: Buchhaltung <rechnung@lieferant-beispiel.example>
+To: gregor@gmail.example
+Subject: Rechnung November
+Date: Mon, 2 Nov 2026 17:00:00 +0100
+Message-ID: <wyzedzm1g7c@mail.lieferant-beispiel.example>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==grenze-zip=="
+
+--==grenze-zip==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Anbei die Rechnung.
+--==grenze-zip==
+Content-Type: application/zip; name="Rechnung.zip"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Rechnung.zip"
+
+UEsDBBQAAAAAAAAAAACsjqVLHgAAAB4AAAAUAAAAUmVjaG51bmdfMjAyNi0xMS5leGVNWi1uaWNo
+dC13aXJrbGljaC1laW4tcHJvZ3JhbW1QSwECFAAUAAAAAAAAAAAArI6lSx4AAAAeAAAAFAAAAAAA
+AAAAAAAAAAAAAAAAUmVjaG51bmdfMjAyNi0xMS5leGVQSwUGAAAAAAEAAQBCAAAAUAAAAAAA
+--==grenze-zip==--
+

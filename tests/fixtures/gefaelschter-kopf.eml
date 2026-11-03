@@ -1,0 +1,22 @@
+Delivered-To: gregor@gmail.example
+Received: by 2002:a05:6a00:1234:b0:1ab:cd12:34ef with SMTP id abc123;
+        Mon, 2 Nov 2026 08:00:01 -0800 (PST)
+ARC-Authentication-Results: i=1; mx.google.com; dkim=none; spf=fail smtp.mailfrom=info@bank-beispiel.example; dmarc=fail (p=REJECT) header.from=bank-beispiel.example
+Return-Path: <info@bank-beispiel.example>
+Received: from vps9.hoster-beispiel.example (vps9.hoster-beispiel.example. [198.51.100.201])
+        by mx.google.com with ESMTPS id x1si123456qkb.1.2026.11.02.08.00.00
+        for <gregor@gmail.example>; Mon, 02 Nov 2026 08:00:00 -0800 (PST)
+Authentication-Results: mx.google.com; dkim=none; spf=fail smtp.mailfrom=info@bank-beispiel.example; dmarc=fail (p=REJECT) header.from=bank-beispiel.example
+Authentication-Results: mx.google.com; dmarc=pass header.from=bank-beispiel.example
+From: Bank <info@bank-beispiel.example>
+To: gregor@gmail.example
+Subject: Bitte prüfen
+Date: Mon, 2 Nov 2026 17:00:00 +0100
+Message-ID: <opzk8azoo4d@vps9.hoster-beispiel.example>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hallo.
+
+
