@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { istFreemail } from "./regeln/mailDomain.js";
 
 /* Optionen aus /data/options.json (Home Assistant schreibt sie dorthin).
    Lokal: OPTIONS_FILE zeigt auf eine eigene Datei. */
@@ -17,7 +18,8 @@ export function optionenNormalisieren(roh = {}) {
     benachrichtigung: String(roh.benachrichtigung || "").trim(),
     meldenBei: roh.melden_bei === "gelb" ? "gelb" : "rot",
     nurMelden: roh.nur_melden === true,
-    eigeneDomains: liste(roh.eigene_domains).map((d) => d.toLowerCase().replace(/^@/, "")),
+    /* gmail.com & Co. gehören nie „dir“ – sonst wäre jede Freemail-Mail rot */
+    eigeneDomains: liste(roh.eigene_domains).map((d) => d.toLowerCase().replace(/^@/, "")).filter((d) => !istFreemail(d)),
     geschuetzteNamen: liste(roh.geschuetzte_namen),
     bekannteDomains: liste(roh.bekannte_domains).map((d) => d.toLowerCase().replace(/^@/, "")),
     rdap: roh.rdap !== false,

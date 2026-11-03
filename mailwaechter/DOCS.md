@@ -38,7 +38,8 @@ Das App-Passwort wird nie protokolliert.
   (gelb meldet auch Rot).
 - `nur_melden` – nichts verschieben (Standard aus).
 - `eigene_domains` – Domains, die dir gehören. Eine Mail mit so einem Absender,
-  die von außen kommt, gilt als Fälschung.
+  die von außen kommt, gilt als Fälschung. Nur echte eigene Domains eintragen,
+  nicht `gmail.com` (Freemail-Domains werden ignoriert).
 - `geschuetzte_namen` – Namen, die in fremden Adressen als Täuschung gelten
   (z. B. „Gregor Wolf“, Familie, Chef).
 - `bekannte_domains` – gelten immer als bekannter Absender.
